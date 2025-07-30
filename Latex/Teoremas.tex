@@ -27,6 +27,21 @@
   mi yo del futuro.
 \end{flushleft}
 
+\begin{flushleft}
+  \LARGE \textbf{Teoremas importantes}
+\end{flushleft}
+\begin{itemize}
+  \item \hyperlink{cooklevin}{\textcolor{Bittersweet}{Teorema de Cook Levin}}
+  \item \hyperlink{jerTdet}{\textcolor{Bittersweet}{Jerarquía de Tiempos Determinísticos}}
+  \item \hyperlink{jerTnodet}{\textcolor{Bittersweet}{Jerarquía de Tiempos no Determinísticos}}
+  \item \hyperlink{ladner}{\textcolor{Bittersweet}{Teorema de Ladner}}
+  \item \hyperlink{jerEspacio}{\textcolor{Bittersweet}{Jerarquía de Espacio}}
+  \item \hyperlink{savitch}{\textcolor{Bittersweet}{Teorema de Savitch}}
+  \item \hyperlink{immerman}{\textcolor{Bittersweet}{Teorema de Immerman-Szelepcsényi}}
+  \item \hyperlink{baker}{\textcolor{Bittersweet}{Teorema de Baker, Gill, Solovay}}
+  \item \hyperlink{karpLipton}{\textcolor{Bittersweet}{Teorema de Karp-Lipton}}
+\end{itemize}
+
 \pagebreak
 
 \begin{flushleft}
@@ -316,8 +331,336 @@
 
 \begin{flushleft}
   \textbf{Proposición 6:}
-  $\mathsf{TMSAT} \in \mathsf{NP}$-completo.
+  $\mathsf{TMSAT} \in \mathsf{NP}$-completo. \\[0.5em]
 
-  
+  \textbf{\textcolor{OliveGreen}{Recordatorio:}} \\[0.5em]
+
+  $\mathsf{TMSAT} = \{ \langle y,x,1^n,t^t \rangle \ | \ \exists u \in \{ 0,1 \}^n \ M_y(xu) = 1$ en a lo 
+  sumo $t$ pasos$\}$ \\[0.5em]
+
+  \textbf{\textcolor{Mulberry}{Demostración:}} \\[0.5em]
+
+  Sea $\mathcal{L} \in \mathsf{NP}$:  
 \end{flushleft}
+\begin{center}
+  $x \in \mathcal{L} \iff \exists u \in \{ 0,1 \}^{p(|x|)} : M(x,u) = 1$ \qquad \textcolor{OliveGreen}{
+    definición de $\mathcal{L}$ en $\mathsf{NP}$} \\[0.5em]
+
+  $x \in \mathcal{L} \iff f(x) \in \mathsf{TMSAT}$ \qquad \textcolor{OliveGreen}{definición $\mathcal{L} 
+    \leq_p \mathsf{TMSAT}$}
+\end{center}
+\begin{flushleft}
+  La $f$ de la reducción sería: \\[0.5em]
+
+  \quad $f(x) = \langle \langle M \rangle ,x,1^{p(|x|)},1^{q(|x| + p(|x|))} \rangle$ \qquad \textcolor{
+    OliveGreen}{(lo cual es computable en tiempo poly)}
+\end{flushleft}
+\begin{center}
+  $f(x) \in \mathsf{TMSAT} \iff \langle \langle M \rangle ,x,1^{p(|x|)},1^{q(|x| + p(|x|))} \rangle \in 
+  \mathsf{TMSAT}$ \\[0.5em]
+
+  $\iff \exists u \in \{ 0,1 \}^{p(|x|)} : M(x,u) = 1$ en $\leq q(|x|, p(|x|))$ pasos \\[0.5em]
+
+  $\iff x \in \mathcal{L}$
+\end{center}
+
+\begin{flushleft}
+  \textbf{Proposición 7:}
+  \textit{Sea $\varphi(p_1,\dots, p_n)$ una fórmula booleana. Si $v$ y $v'$ son dos valuaciones tales que
+  $v(p_i) = v'(p_i)$ para $i \in \{ 1, \dots, n\}$, entonces $v \models \varphi(p_1,\dots, p_n)$ sii
+  $v' \models \varphi(p_1,\dots, p_n)$.} \\[0.5em]
+
+  \textbf{\textcolor{Mulberry}{Demostración:}} \\[0.5em]
+
+  $v(p_i) = v'(p_i)$ significa que la valuación evalúa a las variables proposicionales con el mismo valor.
+  La proposición sale inmediata.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{\hypertarget{teo10}{Teorema 10:}}
+  $\mathsf{SAT}$, $3\mathsf{SAT} \in \mathsf{NP}$ \\[0.5em]
+
+  \textbf{\textcolor{Mulberry}{Demostración:}} \\[0.5em]
+
+  $M: \langle x,u \rangle$
+  
+  \quad $x$ representa una fórmula booleana
+
+  \quad if ($x = \langle y \rangle$ y $\varphi$ tiene $m$ variables proposicionales)
+
+  \qquad ret $u \upharpoonright m \models \varphi$ \qquad \textcolor{OliveGreen}{($\upharpoonright$ toma
+  los primeros $m$ elementos de $u$)}
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{\hypertarget{prop8}{Proposición 8:}}
+  \textit{Para toda $F : \{ 0,1 \}^\ell \rightarrow \{ 0,1 \}$ existe una fórmula booleana $\varphi_F(p_1,
+  \dots, p_\ell)$ en CNF tal que $v \models \varphi$ sii $F(v) = 1$ para todo $v \in \{ 0,1 \}^\ell$. Más
+  aún, $\varphi_F$ se computa en tiempo polinomial a partir de $\langle F \rangle$ y tiene tamaño $O(\ell
+  2^\ell)$.} \\[0.5em]
+
+  \textbf{\textcolor{Mulberry}{Demostración:}} \\[0.5em]
+
+  Concateno todas las posibles combinaciones de $\ell$ bits $(\ell2^\ell)$ de manera que si $F(v)$ da $0$,
+  haya un $v \not\models (p_1 \land \lnot p_2 \dots \land p_n)$ y $(p_1 \land \dots \land p_n)$ está en
+  $\varphi_F$
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Corolario 1:}
+  \textit{Para toda $F : \{ 0,1 \}^\ell \rightarrow \{ 0,1 \}^k$ existe una fórmula booleana $\varphi(
+  p_1, \dots, p_{\ell + k})$ en CNF tal que $uv \models \varphi_F$ sii $F(u) = v$ para todo $u \in \{
+  0,1 \}^\ell$, $v \in \{0,1 \}^k$. Más aún, $\varphi_F$ se computa en tiempo polinomial a partir de 
+  $\langle F \rangle$ y tiene tamaño $O((\ell + k)2^{\ell + k})$.} \\[0.5em]
+
+  \textbf{\textcolor{Mulberry}{Demostración:}} \\[0.5em]
+
+  Defino $G : \{ 0,1 \}^\ell \rightarrow \{ 0,1 \}^k$ tal que $G(u,v) = 1 \iff F(u) = v$ y aplico la 
+  \hyperlink{prop8}{\textcolor{Rhodamine}{proposición 8}}.
+\end{flushleft}
+
+\pagebreak
+
+\begin{flushleft}
+  \textbf{Teorema 11: \hypertarget{cooklevin}{\textcolor{Bittersweet}{(Teorema de Cook Levin)}}}
+  $\mathsf{SAT} \in \mathsf{NP}$-hard. \\[0.5em]
+
+  \textcolor{Mulberry}{\textbf{Idea de la demostración:} \qquad (no la explico toda porque es muy 
+  técnica)} \\[0.5em]
+
+  \quad \ $x \in \mathcal{L} \iff \exists u \in \{ 0,1 \}^{p(|x|)} : M(x,u) = 1$ \\[0.5em]
+
+  \qquad \qquad $\iff$ Existe $u \in \{ 0,1 \}^{p(|x|)}$ y existe un cómputo $C_0, \dots, C_{t(|xu|)}$ 
+  a partir de la entrada $xu$ \\[0.5em]
+
+  Con el uso de mini-configuraciones $z_0,\dots,z_m \in \{ 0,1 \}^k$ con $k$ dependiente de la máquina.
+
+  Con la entrada ($xu$) quiero ver si con fórmulas de tamaño polinomial a la entrada puedo simular el 
+  cómputo de la máq. $M$ det. que decide a $\mathcal{L}$. \\[0.5em]
+
+  Las fórmulas son:
+\end{flushleft}
+\begin{enumerate}
+  \item La que representa la cinta de entrada. \qquad $(xu)$
+  \item La configuración inicial de $M$ a partir de $(xu)$. \qquad $(q_0)$
+  \item La evolución en un paso de $z_i$ a $z_{i+1}$. \qquad $(\delta)$
+  \item La configuración final de $M$ aceptadora. \qquad $(q_f$ y el símbolo en la cinta de trabajo es 
+  $1)$
+\end{enumerate}
+
+\begin{flushleft}
+  \textbf{Corolario 2:}
+  $\mathsf{SAT}$, $3\mathsf{SAT} \in \mathsf{NP}$-completos. \\[0.5em]
+
+  \textbf{\textcolor{Mulberry}{Demostración:}} \\[0.5em]
+
+  Sale del \textcolor{Rhodamine}{\hyperlink{teo10}{teorema 10} \hyperlink{cooklevin}{y 11}}.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 9:}
+  $\mathsf{INDSET} \in \mathsf{NP}$-completo. \\[0.5em]
+
+  \textbf{\textcolor{Mulberry}{Demostración:}} \\[0.5em]
+
+  Ver que $\mathsf{INDSET} \in \mathsf{NP}$ es medianamente fácil, ahora ver que $\mathsf{INDSET} \in 
+  \mathsf{NP}$-hard tenés qie hacerlo por definición \textcolor{OliveGreen}{(nunca)} o por reducción 
+  polinomialde un $\mathsf{NP}$-hard que ya sepamos. \\[0.5em]
+
+  Veamos que $3\mathsf{SAT} \leq_p \mathsf{INDSET}$:\\[0.5em]
+
+  \qquad $\varphi = (\ell_{11} \lor \ell_{12} \lor \ell_{13}) \land \dots \land (\ell_{m1} \lor \ell_{m2}
+  \lor \ell_{m3})$ \\[0.5em]
+
+  A lo sumo tengo $3m$ vértice (si todos los literales son distintos), uno por cada variable.
+
+  Defino una arista entre $z$ y $z'$ si están en la misma cláusula de la fórmula o la variable ligada al
+  nodo $z$ es la negación de la variable ligada al nodo $z'$. \\[0.5em]
+
+  Esto sería la $f$ de que: \\[0.5em]
+
+  \qquad $x \in 3\mathsf{SAT} \iff f(x) \in \mathsf{INDET}$ \qquad \textcolor{OliveGreen}{(La demo de que
+  esto funciona queda en tu imaginación)}
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 10:}
+  $\mathsf{CAMHAM} \in \mathsf{NP}$-completo.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Teorema 12:}
+  $\mathsf{TSP} \in \mathsf{NP}$-completo.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 11:}
+  $\mathsf{KNAPSACK} \in \mathsf{NP}$-completo
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Teorema 13:}
+  \textit{Si} $\mathsf{P} = \mathsf{NP}$ \textit{entonces} $\mathsf{ExpTime} = \mathsf{NExpTime}$ \\[0.5em]
+
+  \textbf{\textcolor{Mulberry}{Demostración:}} \\[0.5em]
+
+  \textcolor{Mulberry}{$\mathsf{ExpTime} \subseteq \mathsf{NExpTime}$:} \\[0.5em]
+
+  Esto ya se cumple sin que $\mathsf{P} = \mathsf{NP}$. \\[0.5em]
+
+  \textcolor{Mulberry}{$\mathsf{NExpTime} \subseteq \mathsf{ExpTime}$:} \\[0.5em]
+
+  Sea $\mathcal{L} \in \mathsf{NExpTime}$ y $\mathcal{L}(N)$ tal que $N$ es no-det. y corre en $c2^{n^c}$.
+
+  Considero $\mathcal{L}_{pad} : \{ \langle x, 1^{2^{|x|^c}} \rangle : x \in \mathcal{L}\}$ \qquad 
+  \textcolor{OliveGreen}{($\mathcal{L}$ con padding)} \\[0.5em]
+
+  Veamos que $\mathcal{L}_{pad} \in \mathsf{NP}$: \\[0.5em]
+
+  \qquad Como la entrada de $\mathcal{L}_{pad}$ es una cadena exponencial con respecto a $|x|$, puedo 
+  correr a $N$ con $x$ por $2^{|x|^c}$ pasos porque es poly con respecto a $|\langle x, 1^{2^{|x|^c}} 
+  \rangle|$.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Teorema 14: \hypertarget{jerTdet}{\textcolor{Bittersweet}{(Jerarquía de Tiempos Determinísticos)}}}
+  \textit{Si $f$, $g$ son construibles en tiempo y cumplen que $f(n) \cdot log(f(n)) = o(g(n))$ entonces $
+  \mathsf{DTime}(f(n)) \subsetneq \mathsf{DTime}(g(n))$.} \\[0.5em]
+
+  \textbf{\textcolor{Mulberry}{Demostración:}} \\[0.5em]
+
+  A ver, esto va a ser lento y detallado porque me cuesta entenderla. \\[0.5em]
+
+  La idea principal es demostrar por diagonalización que hay lenguajes que estan en $\mathsf{DTime}(g(n))$
+  pero no en $\mathsf{DTime}(f(n))$. \\[0.5em]
+
+  Declaro $D$ máq. det. tal que: \\[0.5em]
+
+  $D: \langle x \rangle$
+
+  \quad Calcula $n = |x|$ y $t = g(n)$ \qquad \textcolor{OliveGreen}{$O(g(n) + n) = O(g(n))$}
+
+  \quad Simula $U(\langle x,x \rangle)$ por $t$ pasos \qquad \textcolor{OliveGreen}{$O(g(n))$}
+
+  \quad if($U(\langle x,x \rangle)$ no terminó en a lo sumo $t$ pasos): \qquad \textcolor{OliveGreen}{$O(1)$}
+
+  \qquad ret $0$
+
+  \quad else:
+  
+  \qquad ret $\lnot (U(\langle x,x \rangle))$ \\[0.5em]
+
+  $\mathcal{L} \in \mathsf{DTime}(g(n))$ es inmediato. \\[0.5em]
+
+  Ahora vamos a ver por absurdo la prueba: \\[0.5em]
+
+  \quad Supongo que $\mathcal{L}(D) \in \mathsf{DTime}(f(n))$. Sea $\mathcal{L}(M) = \mathcal{L}(D)$, 
+  donde $M$ termina en a lo sumo $O(f(|x|))$ pasos ($c.f(|x|)$) \textcolor{OliveGreen}{acá $|x| \geq n_0$ 
+  que es el punto donde siempre la función $f$ se vuelve mayor} \\[0.5em]
+
+  Por el \hyperlink{teo2}{\textcolor{Rhodamine}{teorema 2}} sé que $U(\langle x,x \rangle)$ simula $M_x(x)$
+  en $c'.$\textcolor{Red}{$c.f(|x|)$}$.log($\textcolor{Red}{$c.f(|x|)$}$)$ pasos.\footnote{
+  el teorema 2 dice que $U(\langle x,x \rangle)$ corre en $k.z.log(z)$ donde $z$ es el tiempo de cómputo 
+  de $x$ en la máquina $M_x$} \\[0.5em]
+
+  Luego, existen $d$ y $n_1 \geq n_0$ tal que $\forall n \geq n_1$: \\[0.5em]
+
+  \qquad $c'.$\textcolor{Red}{$c.f(|x|)$}$.log($\textcolor{Red}{$c.f(|x|)$}$) \leq 
+  \textcolor{Fuchsia}{d} . f(n) . log(f(n)) \leq g(n)$ \\[0.5em]
+
+  Tomo $x$ tal que $|x| \geq n_1$ y $M_x = M$. La existencia de este $x$ es garantizada porque se pueden 
+  hacer infinitas máquinas que hagan lo mismo.
+
+  Ahora bien, $U(\langle x,x \rangle)$ termina en $g(|x|)$ pasos. Luego, $D(x) = \lnot(U(\langle x,x 
+  \rangle)) = \lnot(M_x(x)) = \lnot(M(x))$ \textcolor{Red}{Absurdo! Si habíamos dicho que $\mathcal{L}(D) 
+  = \mathcal{L}(M)$} \\[0.5em]
+
+  Ok, tiene sentido, te armás una máquina que corra en $g(|x|)$ pasos, forzas a una máquina a identificar 
+  el mismo lenguaje pero en $log(f(|x|)) . f(|x|)$ pasos y como siempre termina, siempre pasa que da una 
+  contradicción con el lenguaje que se suponía que decidía. \\[0.5em]
+
+  \textcolor{Mulberry}{¿Qué pasa si le meto $D_x$?¿No me da una contradicción también?}
+
+  $D(\langle D_x \rangle) = U(\langle D_x \rangle, \langle D_x \rangle)$ por $t$ pasos = $g(|x|)$ pasos 
+  $\dots$ \textcolor{OliveGreen}{Opa? Esto no termina, o sea, si que termina, retorna 0 porque no termina
+  el llamado recursivo que se llama a $U(\langle D_x \rangle, \langle D_x \rangle) = D(\langle D_x \rangle)$.}
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Teorema 15: \hypertarget{jerTnodet}{\textcolor{Bittersweet}{(Jerarquía de Tiempos no Determinísticos)}}}
+  \textit{Si $f$, $g$ son construibles en tiempo y cumplen que $f(n) \cdot log(f(n)) = o(g(n))$ entonces $
+  \mathsf{NDTime}(f(n)) \subsetneq \mathsf{NDTime}(g(n))$.} \\[0.5em]
+  
+  \textbf{\textcolor{Mulberry}{Demostración:}} \\[0.5em]
+
+  Pendiente.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Teorema 16: \hypertarget{ladner}{\textcolor{Bittersweet}{(Teorema de Ladner)}}} 
+  \textit{Si $\mathsf{P} \neq \mathsf{NP}$ entonces existe $\mathcal{L}$ tal que $\mathcal{L} \in \mathsf{NP}$,
+  $\mathcal{L} \not\in \mathsf{P}$, y $\mathcal{L} \not\in \mathsf{NP}$}-completo. \\[0.5em]
+
+
+  \textbf{\textcolor{Mulberry}{Demostración:}} \\[0.5em]
+  
+  Quiero ver que si $\mathsf{P} \neq \mathsf{NP} \Rightarrow \exists \mathcal{L} : \mathcal{L} \in \mathsf{NP}$,
+  $\mathcal{L} \not\in \mathsf{P}$, y $\mathcal{L} \not\in \mathsf{NP}$-completo. \\[0.5em]
+
+  \textcolor{Mulberry}{¿Cómo hago esto? }Me creo un $\mathcal{L}$ y voy viendo que asumiendo el antecedente $\mathsf{P} \neq 
+  \mathsf{NP}$, llego a obtener que se cumple el consecuente si lo hice bien al $\mathcal{L}$. \\[0.5em]
+
+  Definimos el problema $\mathsf{SAT}_H$ relativo a la funcion $H : \mathbb{N} \rightarrow \mathbb{N}$ tal
+  que:
+\end{flushleft}
+\begin{center}
+  $\mathsf{SAT}_H = \{ \psi 01^{n^{H(n)}} : \psi \in \mathsf{SAT}, \ n = |\psi|\}$ \\[0.5em]
+  
+  \textcolor{OliveGreen}{Es como un $\mathsf{SAT}$ con padding, o sea, no agrega nada a $\psi$}
+\end{center}
+\begin{flushleft}
+  Ahora, si $H(n) = n \Rightarrow \mathsf{SAT}_h \in \mathsf{P}$: \textcolor{OliveGreen}{Esto pasa porque la 
+  entrada sería $\psi 01^{n^{n}}$, por lo cual, resolver que $\psi$ es $\mathsf{SAT}$ en una $M$ det tomaría
+  $2^n$, lo cual es polinomial respecto a la entrada (porque $|2^n| \leq |1^{n^n}|$ para toda $\psi$ salvo
+  finitos casos).} \\[0.5em]
+
+  Si $H(n) =$ constante $\Rightarrow \mathsf{SAT}_H \in \mathsf{ExpTime}$: \textcolor{OliveGreen}{El tener
+  $\psi 01^{n^c}$ me deja la entrada con $|\psi 01^{n^c}| = n^{c+1}$ y esto no es gran cambio para el $
+  \mathsf{SAT}$ original, y sigue siendo $\mathsf{NP}$-completo $\mathsf{SAT}_H$.} \\[0.5em]
+
+  Necesito que $H(n)$ tienda a infinito pero que crezca lentamente para llegar a un $\mathsf{NP}$-intermedio. 
+  \\[0.5em]
+
+  Se define $H$ tal que:
+
+  \[
+    H(x) = 
+    \begin{cases}
+    \textcolor{Red}{\star} \ \text{min} \ i < log (log (n)) \text{ tal que } \forall x \ . \ x \in \{0,1\}^{
+    \leq log(n)} M_i(x) = \mathcal{X}\mathsf{SAT}_H(x) \text{ en a lo sumo } i.|x|^i \text{ pasos} & 
+    \textcolor{Red}{\text{si existe tal } i}\\
+    log (log (n)) & \textcolor{Red}{\text{si no}}
+    \end{cases}
+  \]
+
+  \textcolor{Red}{$\star$ No entendi que hace acá, veamoslo más tranqui:} \\[0.5em]
+  \quad Buscamos si alguna máquina $M_i$ decide $\mathsf{SAT}_H$ sobre todas las entradas chicas $(\leq log(n))$ en a 
+  lo sumo $i|x|^i$ pasos.
+  
+  \quad El $i$ debe ser el mínimo menor a $log(log(n))$
+
+  \quad Si no existe, ponemos $H(n) = log(log(n))$ para que crezca un poco.\\[0.5em]
+
+  $\mathsf{SAT}_H$ y $H$ quedan definidas por recursión mutua ($H$ depende de $\mathsf{SAT}_H$ y viceversa)
+\end{flushleft}
+\begin{itemize}
+  \item $H(n)$ usa $\mathsf{SAT}_H(x)$ para palabras $x$ tal que $|x| \leq log(n)$
+  \item $\mathsf{SAT}_H(x)$ usa $H(n)$ para palabras $x$ tal que $|x| > n$
+\end{itemize}
+\begin{flushleft}
+  donde $x = \psi01^{n^{H(n)}}$ y $n = |\psi|$
+\end{flushleft}
+
+
+
 \end{document}
