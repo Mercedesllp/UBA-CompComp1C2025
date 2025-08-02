@@ -9,7 +9,7 @@
 \usepackage{listings}   % For coding
 \usepackage{amssymb}    % For square
 \usepackage{amsmath}    % For cases
-
+\usepackage{multicol}   % For multiple columns
 
 \title{Teoremas, Proposiciones y Corolarios}
 \author{Bander}
@@ -601,7 +601,6 @@
   \textit{Si $\mathsf{P} \neq \mathsf{NP}$ entonces existe $\mathcal{L}$ tal que $\mathcal{L} \in \mathsf{NP}$,
   $\mathcal{L} \not\in \mathsf{P}$, y $\mathcal{L} \not\in \mathsf{NP}$}-completo. \\[0.5em]
 
-
   \textbf{\textcolor{Mulberry}{Demostración:}} \\[0.5em]
   
   Quiero ver que si $\mathsf{P} \neq \mathsf{NP} \Rightarrow \exists \mathcal{L} : \mathcal{L} \in \mathsf{NP}$,
@@ -661,6 +660,367 @@
   donde $x = \psi01^{n^{H(n)}}$ y $n = |\psi|$
 \end{flushleft}
 
+\begin{flushleft}
+  \textbf{Proposición 12:}
+  $\mathsf{SAT}_H \in \mathsf{P} \Rightarrow \exists c \ \forall \ n H(n) \leq c$.
+\end{flushleft}
 
+\begin{flushleft}
+  \textbf{Proposición 13:}
+  $\exists c \ \exists^ {\infty} n \ H(n) \leq c \Rightarrow \mathsf{SAT}_H \in \mathsf{P}$.
+\end{flushleft}
 
+\begin{flushleft}
+  \textbf{Proposición 14:}
+  \textit{Existe $k$ tal que para toda fórmula booleana $\psi$, $|\psi| > k \Rightarrow |F_\psi| <
+  |\psi|$.}
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 15:}
+  $\mathsf{DTime}(S(n)) \subseteq \mathsf{Space}(S(n))$.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 16:}
+  $\mathsf{Space}(S(n)) \subseteq \mathsf{NSpace}(S(n))$.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 17:}
+  \textit{Sea $M$ una máquina (determinística o no determinística) que usa espacio $S(n)$ tal que
+  $S(n) \geq log(n)$. Existe una constante $c$ tal que para todo $x \in \{ 0,1 \}^*$, cada vértice
+  de $G_{M, x}$ se puede describir usando $c \cdot S(|x|)$ bits ($c$ depende de $M$). Luego, $G_{M,x}$
+  tiene $2^{c \cdot S(|x|)}$ nodos.}
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 18:}
+  \textit{Si $S$ es construible en espacio, $\mathsf{NSpace}(S(n)) \subseteq \mathsf{DTime}(2^{O(S(n))})$.}
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 19:}
+  $\mathsf{NP} \subseteq \mathsf{PSpace}$.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Teorema 17: \hypertarget{jerEspacio}{\textcolor{Bittersweet}{(Jerarquía de Espacio)}}}
+  \textit{Si $f$, $g$ son construibles en espacio y cumplen que $f(n) = o(g(n))$ entonces:}
+\end{flushleft}
+\begin{center}
+  $\mathsf{Space}(f(n)) \subsetneq \mathsf{Space}(g(n))$.
+\end{center}
+
+\begin{flushleft}
+  \textbf{Teorema 18:}
+  $\mathsf{TQBF} \in \mathsf{PSpace}$.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 20:}
+  \textit{En tiempo polinomial se puede transformar cualquier QBF generalizada $\psi (y_1, \dots, y_m)$ 
+  en una QBF $\psi'(y_1, \dots, y_m)$ posiblemente con variables libres que es equivalente, es decir, tal 
+  que para todo $v \in \{ 0,1 \}^m$}
+\end{flushleft}
+\begin{center}
+  $v \models \psi(y_1, \dots, y_m) \iff v \models \psi'(y_1, \dots, y_m)$.
+\end{center}
+
+\begin{flushleft}
+  \textbf{Proposición 21:}
+  $\mathsf{CHECKQBF} \leq_p \mathsf{TQBF}$.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 22:}
+  \textit{Sea $M$ una máquina (determinística o no-determinística) que usa espacio $S(n) \geq log(n)$ y sea
+  $c$ una constante tal que para todo $x \in \{0,1\}^*$ cualquier configuración $C$ de un cómputo de $M$ con
+  entrada $x$ se representa con $|\langle C \rangle| = c \cdot S(|x|)$ bits. Dado $x \in \{0,1\}^*$, podemos
+  computar en tiempo polinomial en $S(n)$ una fórmula $\varphi_{M,x}(\overline{s}, \overline{t})$ en CNF con
+  variables libres $\overline{s} = s_1, \dots, s_{c \cdot S(|x|)}$, $\overline{t} = t_1, \dots, t_{c \cdot
+  S(|x|)}$ tal que $\langle C \rangle \langle C' \rangle \models \varphi_{M,x}(\overline{s}, \overline{t})$
+  sii hay una flecha de $C$ a $C'$ en $G_{M,x}$.}
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Teorema 19:}
+  $\mathsf{TQBF} \in \mathsf{PSpace}$-hard.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Teorema 20: \hypertarget{savitch}{\textcolor{Bittersweet}{(Teorema de Savitch)}}}
+  $\mathsf{NSpace}(S(n)) \subseteq \mathsf{Space}(S(n)^2)$\textit{, de modo que} $\mathsf{PSpace} = \mathsf{
+  NPSpace}$.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 23:}
+  $\mathsf{PATH} \in \mathsf{NL}$
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 24:}
+  \textit{Si $\mathcal{L} \not\in \{\{0,1\}^*, \emptyset\}$ entonces $\mathcal{L}$ es $\mathsf{NL}$}-hard
+  \textit{con respecto a $\leq_p$.}
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 25:}
+  \textit{Sean $f,g$ computables implícitamente en $\mathsf{L}$. Entonces $g \circ f$ es computable 
+  implícitamente en $\mathsf{L}$.}
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Teorema 21:}
+  $\mathsf{PATH} \in \mathsf{NL}$-completo \textit{y por lo tanto} $\overline{\mathsf{PATH}} \in \mathsf{coNL}$-completo.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Teorema 22:}
+  \textit{$\mathcal{L} \in \mathsf{NL}$ sii existe un polinomio $p : \mathbb{N} \rightarrow \mathbb{N}$ y una
+  máquina determinística $M$ con una cinta de entrada adicional de lectura de una única vez (lee y pasa a la 
+  siguiente celda a la derecha pero no puede volver atrás) tal que:}
+\end{flushleft}
+\begin{enumerate}
+  \item \textit{Para todo $x \in {0, 1}^*$, $x \in \mathcal{L}$ sii existe $u \in {0, 1}^{p(|x|)}$ tal que $M (x, u) = 
+  1$; aquí $M (x, u)$ denota la salida de $M$ cuando la cinta de entrada tiene $x$ y la cinta adicional de lectura 
+  de una única vez tiene $u$}
+  \item \textit{$M$ usa espacio $O(log(n))$; en este modelo de máquina con cinta de entrada adicional, la cinta de entrada 
+  y la cinta adicional no cuentan en el espacio (solo cuentan sus cintas de trabajo y salida).}
+\end{enumerate}
+
+\begin{flushleft}
+  \textbf{Teorema 23: \hypertarget{immerman}{\textcolor{Bittersweet}{(Teorema de Immerman-Szelepcsényi)}}}
+  $\overline{\mathsf{PATH}} \in \mathsf{NL}$.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Corolario 4:}
+  $\mathsf{NL} = \mathsf{coNL}$.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Teorema 24:}
+  \textit{Si $S(n) \geq log(n)$ es construible en espacio entonces $\mathsf{NSpace}(S(n)) = \mathsf{coNSpace}
+  (S(n))$.}
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 26:}
+  $\textsf{MAXINDSET} \in \Sigma ^p _2$.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 27:}
+  \textit{La jerarquía polinomial tiene las siguientes propiedades:}
+\end{flushleft}
+\begin{multicols}{4}
+  \begin{itemize}
+    \item $\Sigma^p_1 = \mathsf{NP}$
+    \item $\Sigma^p_i \subseteq \Sigma^p_{i+1}$
+    \item $\Pi^p_i \subseteq \Sigma^p_{i+1}$
+    \item $\Pi^p_1 = \mathsf{coNP}$
+    \item $\Sigma^p_i \subseteq \Pi^p_{i+1}$
+    \item $\Pi^p_i \subseteq \Pi^p_{i+1}$
+    \item $\mathsf{PH} = \bigcup_{i \geq 0} \Sigma^p_{i}$
+  \end{itemize}
+\end{multicols}
+\begin{flushleft}
+  La pregunta $\mathsf{P} \stackrel{?}{=} \mathsf{NP}$ se puede generalizar a $\Sigma^p_i \stackrel{?}{=} 
+  \Sigma^p_{i+1}$; ninguna se conoce. Decimos que la jerarquía polinomial colapsa si $\mathsf{P} = \mathsf{PH}$.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 28:}
+  \textit{Si $\mathsf{P} = \mathsf{NP}$ entonces $\mathsf{PH} = \mathsf{P}$.}
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 29:}
+  \textit{Las clases $\Sigma^p_i$ y $\Pi^p_i$ están cerradas hacia abajo por $\leq_p$. Es decir, para $
+  \mathcal{L}' \leq_p \mathcal{L}$ tenemos que si $\mathcal{L} \in \Sigma^p_i$ entonces $\mathcal{L}' \in 
+  \Sigma^p_i$ y si $\mathcal{L} \in \Pi^p_i$ entonces $\mathcal{L}' \in \Pi^p_i$.}
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 30:}
+  \textit{Si existe $\mathcal{L} \in \mathsf{PH}$}-completo \textit{entonces existe $i$ tal que $\mathsf{PH}
+  = \Sigma^p_i$.}
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Corolario 5:}
+  \textit{Si la jerarquía polinomial no colapsa en ningún nivel entonces $\mathsf{PH} \neq \mathsf{PSpace}$.}
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 31:}
+  \textit{Para todo $i > 0$, $\Sigma_i \mathsf{SAT} \in \Sigma^p_i$.}
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 32:}
+  \textit{Para todo $i > 0$, $\Sigma_i \mathsf{SAT} \in \Sigma^p_i$}-hard.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Corolario 6:}
+  \textit{Para todo $i > 0$, $\Sigma_i \mathsf{SAT} \in \Sigma^p_i$}-completo.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 33:}
+  \textit{Para todo $i > 0$, $\Pi_i \mathsf{SAT} \in \Pi^p_i$}-completo.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 34:}
+  \textit{Si $\mathcal{X} \in \mathsf{P}$, entonces $\mathsf{P} = \mathsf{P}^\mathcal{X}$.}
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 35:}
+  $\mathsf{ExpTime \subseteq P^{EXPCOM}}$.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 36:}
+  $\mathsf{NP^{EXPCOM} \subseteq ExpTime}$.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Corolario 7:}
+  $\mathsf{P^{EXPCOM} = NP^{EXPCOM}}$.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Teorema 25: \hypertarget{baker}{\textcolor{Bittersweet}{(Teorema de Baker, Gill, Solovay)}}}
+  \textit{Existen oráculos $\mathcal{A}$ y $\mathcal{B}$ tal que $\mathsf{P}^\mathcal{A} = \mathsf{NP}^
+  \mathcal{A}$ y $\mathsf{P}^\mathcal{B} \neq \mathsf{NP}^\mathcal{B}$.}
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Teorema 26:}
+  \textit{Para $i \geq 1$, $\Sigma^p_{i+1} = \mathsf{NP}^{\Sigma_i \mathsf{SAT}}$.}
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Teorema 27:}
+  $\mathsf{P \subseteq P_{/poly}}$.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Teorema 28:}
+  $\mathsf{P \nsupseteq P_{/poly}}$.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 37:}
+  \textit{Sea $(C_n)_{n \in \mathbb{N}}$ una familia de circuitos de tamaño $S(n)$ tal que\footnote{Notamos
+  $C_n(\varphi)$ en ve de $C_n(\langle \varphi \rangle)$ y lo mismo para $C'_n$} $C_n(\varphi) = \mathcal{X}
+  \mathsf{SAT}(\varphi)$ para toda fórmula booleana $\varphi = \varphi(x_1, \dots , x_n)$ con $|\varphi| = n$.
+  Entonces existe una familia de circuitos $(C'_n)_{n \in \mathbb{N}}$ de tamaño polinomial en $S(n)$ tal que
+  para todo $n: C'_n$ tiene $n$ salidas y para toda fórmula booleana $\varphi = \varphi(x_1, \dots, x_n)$ 
+  con $|\varphi| = n$, tenemos $\varphi(C'_n(\varphi)) = \mathcal{X}\mathsf{SAT}(\varphi)$.}
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Teorema 29: \hypertarget{karpLipton}{\textcolor{Bittersweet}{(Teorema de Karp-Lipton)}}}
+  \textit{Si $\mathsf{NP \subseteq P_{/poly}}$, entonces $\mathsf{PH} = \Sigma^p_2$.}
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 38:}
+  $\mathsf{minSize}(f) = O(n2^n)$ \textit{para toda} $f : \{0,1\}^n \rightarrow \{0,1\}$.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Teorema 30:}
+  \textit{Para todo $n > 1$, existe $f : \{0,1\}^n \rightarrow \{0,1\}$ tal que $minSize(f) > 2^n / 4n$.}
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 39:}
+  $\mathsf{PARITY \in NC^1_{nu}}$.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 40:}
+  $\mathsf{PARITY \not\in AC^0_{nu}}$.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 41:}
+  $\mathsf{SUMA \in AC^0_{nu}}$.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 42:}
+  $\mathsf{NC^d_{nu} \subseteq AC^d_{nu} \subseteq NC^{d+1}_{nu}}$\textit{. Por lo tanto,} $\mathsf{AC_{nu} = 
+  NC_{nu}}$.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Teorema 31:}
+  \textit{$\mathcal{L}$ es decidible por una familia de circuitos $\mathsf{P}$}-uniforme \textit{sii} $
+  \mathcal{L} \in \mathsf{P}$.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 43:}
+  $\mathsf{PARITY \in NC^1}$.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 44:}
+  $\mathsf{SUMA \in AC^0}$.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 45:}
+  $\mathsf{NC^d \subseteq AC^d \subseteq NC^{d+1}}$\textit{. Por lo tanto,} $\mathsf{AC = NC}$.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 46:}
+  $\mathsf{NC \subseteq P}$.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Teorema 32:}
+  \textit{$\mathcal{L}$ tiene una solución paralela eficiente sii $\mathcal{L} \in \mathsf{NC}$.}
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Teorema 33:}
+  $\mathsf{NC^1 \subseteq L}$.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Teorema 34:}
+  \textit{Sea $\mathsf{L \in NSpace}(S(n))$. Existe una familia de circuitos $(C_n)_{n \in \mathbb{N}}$ 
+  con compuertas $\land$ y $\lor$ de fan-in arbitrario y una máquina determinística $M$ tal que para todo
+  $n \geq 1$ y $x \in \{0,1\}^n$ tenemos que $x \in L$ sii $C_n(x) = 1$, $M (1^n) = \langle C_n \rangle$,
+  $|C_n| = 2^{O(S(n))}$ y $prof(C_n) = O(S(n))$.}
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Corolario 8:}
+  $\mathsf{NL \subseteq AC^1}$.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Proposición 47:}
+  $\mathsf{CIRC}$-$\mathsf{EVAL}$ \textit{es} $\mathsf{P}$-completo.
+\end{flushleft}
+
+\begin{flushleft}
+  \textbf{Teorema 35:}
+  \textit{Supongamos que $\mathcal{L}$ es $\mathsf{P}$}-completo:
+\end{flushleft}
+\begin{enumerate}
+  \item $\mathcal{L} \in \mathsf{NC \iff P = NC}$.
+  \item $\mathcal{L} \in \mathsf{L \iff P = L}$.
+\end{enumerate}
 \end{document}
