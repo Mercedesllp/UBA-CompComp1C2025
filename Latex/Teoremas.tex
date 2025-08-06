@@ -413,7 +413,7 @@
 \end{flushleft}
 
 \begin{flushleft}
-  \textbf{Corolario 1:}
+  \textbf{\hypertarget{cor1}{Corolario 1:}}
   \textit{Para toda $F : \{ 0,1 \}^\ell \rightarrow \{ 0,1 \}^k$ existe una fórmula booleana $\varphi(
   p_1, \dots, p_{\ell + k})$ en CNF tal que $uv \models \varphi_F$ sii $F(u) = v$ para todo $u \in \{
   0,1 \}^\ell$, $v \in \{0,1 \}^k$. Más aún, $\varphi_F$ se computa en tiempo polinomial a partir de 
@@ -447,10 +447,21 @@
 \begin{enumerate}
   \item La que representa la cinta de entrada. \qquad $(xu)$
   \item La configuración inicial de $M$ a partir de $(xu)$. \qquad $(q_0)$
-  \item La evolución en un paso de $z_i$ a $z_{i+1}$. \qquad $(\delta)$
+  \item La evolución en un paso de $z_i$ a $z_{i+1}$. \qquad $("\delta")$
   \item La configuración final de $M$ aceptadora. \qquad $(q_f$ y el símbolo en la cinta de trabajo es 
   $1)$
 \end{enumerate}
+\begin{flushleft}
+  \textcolor{Red}{Lo más difícil de ver en mi opinión es el punto 3 asi que lo voy a detallar:} \\[0.5em]
+
+  Para obtener $\langle z_i \rangle$ necesito usar $\langle z_{i-1} \rangle$, $\langle z_{prev(i,n)} 
+  \rangle$ y $\langle xu(e(i,n)) \rangle$ en la función $F$ que se muestra en la definición de mini-configuraciones
+  la cual representa la evolución en un paso del cómputo de $M$ con entrada $xu$.
+
+  Luego, por el \textcolor{Rhodamine}{\hyperlink{cor1}{corolario 1}} obtengo una fórmula que representa 
+  esta función.
+
+\end{flushleft}
 
 \begin{flushleft}
   \textbf{Corolario 2:}
@@ -580,7 +591,7 @@
   = \mathcal{L}(M)$} \\[0.5em]
 
   Ok, tiene sentido, te armás una máquina que corra en $g(|x|)$ pasos, forzas a una máquina a identificar 
-  el mismo lenguaje pero en $log(f(|x|)) . f(|x|)$ pasos y como siempre termina, siempre pasa que da una 
+  el mismo lenguaje pero en $f(|x|)$ pasos y como siempre termina, siempre pasa que da una 
   contradicción con el lenguaje que se suponía que decidía. \\[0.5em]
 
   \textcolor{Mulberry}{¿Qué pasa si le meto $D_x$?¿No me da una contradicción también?}
@@ -910,8 +921,23 @@
 \end{flushleft}
 
 \begin{flushleft}
-  \textbf{Teorema 27:}
-  $\mathsf{P \subseteq P_{/poly}}$.
+  \textbf{\hypertarget{teo27}{Teorema 27:}}
+  $\mathsf{P \subseteq P_{/poly}}$. \\[0.5em]
+
+  \textbf{\textcolor{Mulberry}{Demostración:}} \\[0.5em]
+
+  Sea $\mathcal{L} \in \mathsf{P}$ tal que $\mathcal{L}(M)$, con $M$ una máquina determinística que corre en 
+  tiempo polinomial $t(n)$, podemos suponer que es oblivious, sin cinta de salida y con una única cinta de trabajo.
+
+  Luego, $x \in \mathcal{L}$ sii existe una secuencia de mini-configuraciones de $M$ con entrada $x$ y representamos $x_i$
+  con la cadena $ets$ por lo que el tamaño de la codificación de cada $z_i$ es constante.
+
+  Por último a $C_n$ lo construimos tal que $M(x) = C_n$ para todo $x \in \{0,1\}^*$ por la definición de 
+  mini-configuraciones me hago una $F_n(e, z_i, z_{prev(i,n)}) = z_{i+1}$ la cual puedo representar con un circuito 
+  de tamaño constante.
+
+  Como $M$ es oblivious el circuito $C_n$ cumple que $|C_n| = O(n + t(n))$.
+
 \end{flushleft}
 
 \begin{flushleft}
@@ -966,7 +992,7 @@
 \end{flushleft}
 
 \begin{flushleft}
-  \textbf{Teorema 31:}
+  \textbf{\hypertarget{teo31}{Teorema 31:}}
   \textit{$\mathcal{L}$ es decidible por una familia de circuitos $\mathsf{P}$}-uniforme \textit{sii} $
   \mathcal{L} \in \mathsf{P}$.
 \end{flushleft}
@@ -1003,9 +1029,9 @@
 
 \begin{flushleft}
   \textbf{Teorema 34:}
-  \textit{Sea $\mathsf{L \in NSpace}(S(n))$. Existe una familia de circuitos $(C_n)_{n \in \mathbb{N}}$ 
+  \textit{Sea $\mathcal{L}\in \mathsf{NSpace}(S(n))$. Existe una familia de circuitos $(C_n)_{n \in \mathbb{N}}$ 
   con compuertas $\land$ y $\lor$ de fan-in arbitrario y una máquina determinística $M$ tal que para todo
-  $n \geq 1$ y $x \in \{0,1\}^n$ tenemos que $x \in L$ sii $C_n(x) = 1$, $M (1^n) = \langle C_n \rangle$,
+  $n \geq 1$ y $x \in \{0,1\}^n$ tenemos que $x \in \mathcal{L}$ sii $C_n(x) = 1$, $M (1^n) = \langle C_n \rangle$,
   $|C_n| = 2^{O(S(n))}$ y $prof(C_n) = O(S(n))$.}
 \end{flushleft}
 
@@ -1016,8 +1042,25 @@
 
 \begin{flushleft}
   \textbf{Proposición 47:}
-  $\mathsf{CIRC}$-$\mathsf{EVAL}$ \textit{es} $\mathsf{P}$-completo.
+  $\mathsf{CIRC}$-$\mathsf{EVAL}$ \textit{es} $\mathsf{P}$-completo. \\ [0.5em]
+
+  \textbf{\textcolor{Mulberry}{Demostración:}} \\[0.5em]
+
+  El hecho de que \textcolor{Mulberry}{$\mathsf{CIRC}$-$\mathsf{EVAL \in P}$} es bastante trivial porque sería 
+  reemplazar la entrada del circuito y recorrerlo con los valores.
+
+  Ahora el que \textcolor{Mulberry}{$\mathsf{CIRC}$-$\mathsf{EVAL \in P}$-hard} lo vemos por el \hyperlink{ej17}
+  {\textcolor{Rhodamine}{ejercicio 17}} ya que sabemos que para toda $\mathcal{L'} \in \mathsf{P}$, $\mathcal{L'}$
+  es decidible por una familia de circuitos $\mathsf{L}$-uniforme.
+
+  Con esto en cuenta solo nos queda hacer que $\mathcal{L'} \leq_\ell \mathsf{CIRC}$-$\mathsf{EVAL}$, para esto uso
+  la $f$ tal que $f(1^n) = \langle C_n \rangle$ que sabemos que es computable implícitamente por lo dicho antes.
+
+  Entonces queda que:
 \end{flushleft}
+\begin{center}
+  $x \in \mathcal{L'} \iff C_{|x|}(x) \iff \langle f(1^{|x|}), x \rangle \in \mathsf{CIRC}$-$\mathsf{EVAL}$
+\end{center}
 
 \begin{flushleft}
   \textbf{Teorema 35:}
@@ -1027,4 +1070,24 @@
   \item $\mathcal{L} \in \mathsf{NC \iff P = NC}$.
   \item $\mathcal{L} \in \mathsf{L \iff P = L}$.
 \end{enumerate}
+
+\begin{flushleft}
+  \hypertarget{ej17}{\textbf{Ejercicio 17:}}
+  \textit{Probar que $\mathcal{L}$ es decidible por una familia de circuitos $\mathsf{L}$}-uniformes $\iff 
+  \mathcal{L} \in \mathsf{P}$. \\[0.5em]
+
+  \textbf{\textcolor{Mulberry}{Demostración:}} \\[0.5em]
+
+  \textcolor{Mulberry}{$\subseteq$)}
+  Es consecuencia del hecho que $\mathsf{L \subseteq P}$ y el \textcolor{Rhodamine}{\hyperlink{teo31}{teorema 31}}.
+  \\[0.5em]
+
+  \textcolor{Mulberry}{$\supseteq$)}
+  Viendo la demo del \textcolor{Rhodamine}{\hyperlink{teo27}{teorema 27}} de que $\mathsf{P \subseteq P_{/poly}}$,
+  podemos ver que el tamaño del $C_n$ es polinomial, pero podemos computar su codificación a partir de $1^n$ 
+  implícitamente en $\mathsf{L}$. \textcolor{Red}{(el por qué te lo debo)}
+
+\end{flushleft}
+
 \end{document}
+
