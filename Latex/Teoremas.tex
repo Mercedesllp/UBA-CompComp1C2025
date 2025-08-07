@@ -252,7 +252,7 @@
 \end{flushleft}
 
 \begin{flushleft}
-  \textbf{Teorema 6:}
+  \textbf{\hypertarget{teo6}{Teorema 6:}}
   \textit{Existe una máquina no-determinística $NU$ tal que $NU$ acepta $(\langle i,x \rangle)$ sii $N_i$
   acepta $x$ y si $N_i$ corre en tiempo $T(n)$ entonces $NU(\langle i,x \rangle)$ decide si $N_i$ acepta o 
   rechaza $x$ en $c \cdot T(|x|)$ pasos, donde $c$ depende solo de $i$.} \\[0.5em]
@@ -408,8 +408,8 @@
   \textbf{\textcolor{Mulberry}{Demostración:}} \\[0.5em]
 
   Concateno todas las posibles combinaciones de $\ell$ bits $(\ell2^\ell)$ de manera que si $F(v)$ da $0$,
-  haya un $v \not\models (p_1 \land \lnot p_2 \dots \land p_n)$ y $(p_1 \land \dots \land p_n)$ está en
-  $\varphi_F$
+  entonces $v \not\models \varphi$ y esto se hace negando la conjunción de los bits de la $v$ en la cadena de 
+  conjunciones principal de la fórmula.
 \end{flushleft}
 
 \begin{flushleft}
@@ -487,14 +487,15 @@
   \qquad $\varphi = (\ell_{11} \lor \ell_{12} \lor \ell_{13}) \land \dots \land (\ell_{m1} \lor \ell_{m2}
   \lor \ell_{m3})$ \\[0.5em]
 
-  A lo sumo tengo $3m$ vértice (si todos los literales son distintos), uno por cada variable.
+  A lo sumo tengo $3m$ vértices (si todos los literales son distintos), uno por cada variable, $m =$ cantidad de 
+  cláusulas.
 
   Defino una arista entre $z$ y $z'$ si están en la misma cláusula de la fórmula o la variable ligada al
   nodo $z$ es la negación de la variable ligada al nodo $z'$. \\[0.5em]
 
   Esto sería la $f$ de que: \\[0.5em]
 
-  \qquad $x \in 3\mathsf{SAT} \iff f(x) \in \mathsf{INDET}$ \qquad \textcolor{OliveGreen}{(La demo de que
+  \qquad $x \in 3\mathsf{SAT} \iff f(x) \in \mathsf{INDSET}$ \qquad \textcolor{OliveGreen}{(La demo de que
   esto funciona queda en tu imaginación)}
 \end{flushleft}
 
@@ -608,8 +609,60 @@
 
   \textbf{\textcolor{Mulberry}{Demostración:}} \\[0.5em]
 
-  Pendiente.
+  Sea $(N)_{i \in \mathbb{N}}$ una enumeración de todas las máquinas no-det. $= \{N_1, N_2, \dots\}$.
+
+  Definimos $N$ con la entrada $x$ así:
+
+  \quad $x$ debe ser de la forma $1^i 0 y$, si no \textcolor{OliveGreen}{rechaza}
+
+  \quad Si $|y| < g(i+1)$:
+
+    \qquad Simular no-det $N_i(x0)$ y $N_i(x1)$ por $g(|x|)$ pasos
+    
+    \qquad Ambas deben terminar y aceptar para \textcolor{OliveGreen}{acepta}, si no, \textcolor{OliveGreen}
+    {rechaza}
+  
+  \quad Si $|y| = g(i+1)$:
+
+    \qquad Simular no-det $N_i(1^i0)$ siguiendo el cómputo codificado por $y$
+
+    \qquad Si termina y rechaza, entonces \textcolor{OliveGreen}{acepta}, si no, \textcolor{OliveGreen}{rechaza}
+
+  \quad Si $|y| > g(i+1)$:
+
+    \qquad \textcolor{OliveGreen}{Rechaza}
+  \\[0.5em]
+
+  Bueno, esta máquina lo que hace básicamente es una recursión hasta que $|y| = g(i+1)$ (si $|y| \leq g(i+1)$),
+  tomar en cuenta que $N_i(x0) = NU(i, x0)$, pero sabemos por el \textcolor{Rhodamine}{\hyperlink{teo6}{teorema 6}}
+  que toma el mismo tiempo hacer uno o lo otro. \\[0.5em]
+
+  Veamoslo por el absurdo, sea $\mathcal{L}(n) \in \mathsf{NDTime}(f(n))$, hay una máquina no-det $N'$ tal que 
+  $\mathcal{L}(N) = \mathcal{L}(N')$ y $N'$ con entrada $x$ suficientemente larga termina en $c \cdot f(n)$ pasos.
+  
+  Luego, tomamos $i$ lo suficientemente grande para que:
 \end{flushleft}
+\begin{enumerate}
+  \item $N' = N$
+  \item Para todo $y \in \{0,1\}^*$, si $|x| > i$ entonces $N_i(x0)$ y$N_i(x1)$ terminan en tiempo no-det $g(|x|)$
+\end{enumerate}
+\begin{flushleft}
+  Ahora tomando que $\mathcal{L}(N) = \mathcal{L}(N_i) = \mathcal{L}(N')$, obtenemos que con la entrada $1^i 0$:
+  \\[0.5em]
+
+  $1^i 0 \in \mathcal{L}(N) \iff \forall y \in \{0,1\}^1 1^i 0 y \in \mathcal{L}(N_i)$
+
+  \qquad \qquad \quad \ $\iff \forall y \in \{0,1\}^2 1^i 0 y \in \mathcal{L}(N_i)$
+
+  \qquad \qquad \qquad \dots
+
+  \qquad \qquad \quad \ $\iff \forall y \in \{0,1\}^{g(i+1)} 1^i 0 y \in \mathcal{L}(N_i)$
+
+  \qquad \qquad \quad \ $\iff N_i(1^i0)$ rechaza siguiendo todos los cómputos $y$ tal que $|y| = g(i+1)$
+
+  \qquad \qquad \quad \ $\iff 1^i0 \not\in \mathcal{L}(N_i) = \mathcal{L}(N)$
+\end{flushleft}
+
 
 \begin{flushleft}
   \textbf{Teorema 16: \hypertarget{ladner}{\textcolor{Bittersweet}{(Teorema de Ladner)}}} 
