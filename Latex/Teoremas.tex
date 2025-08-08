@@ -660,9 +660,19 @@
 
   \qquad \qquad \quad \ $\iff N_i(1^i0)$ rechaza siguiendo todos los cómputos $y$ tal que $|y| = g(i+1)$
 
-  \qquad \qquad \quad \ $\iff 1^i0 \not\in \mathcal{L}(N_i) = \mathcal{L}(N)$
-\end{flushleft}
+  \qquad \qquad \quad \ $\iff 1^i0 \not\in \mathcal{L}(N_i) = \mathcal{L}(N)$ \qquad \textcolor{Red}{Absurdo!}
+  \\[0.5em]
 
+  Lo que podemos ver aca es que como se que $N_i$ termina en $f(n)$ pasos y cuando uso $N$ para ver que $1^i \in
+  \mathcal{L}(N)$ entra en la primera condicion donde $|y| < g(i+1)$ y se pone a simular $N_i(x0)$ y $ N_i(x1)$
+  lo cual tarda $f(|x| + 1)$ lo cual sabemos que es menor estricto para algun $x$ lo suficientemente grande a 
+  $g(|x|)$. 
+  
+  O sea que estos cómputos terminan y como identifican el mismo lenguaje que $N$ estas aceptan sii 
+  $\forall y \in \{0,1\}^{g(i+1)} 1^i 0 y \in \mathcal{L}(N_i)$, o sea que, (por la segunda condición que es un caso
+  base $|y| = g(i+1)$) sé que $N_i(1^i0)$ rechaza siguiendo todos los cómputos $y$ tal que $|y| = g(i+1)$ por lo cual
+  $1^i0 \not\in \mathcal{L}(N_i) = \mathcal{L}(N)$.
+\end{flushleft}
 
 \begin{flushleft}
   \textbf{Teorema 16: \hypertarget{ladner}{\textcolor{Bittersweet}{(Teorema de Ladner)}}} 
@@ -801,26 +811,103 @@
 \end{flushleft}
 
 \begin{flushleft}
-  \textbf{Proposición 22:}
+  \textbf{\hypertarget{prop22}{Proposición 22:}}
   \textit{Sea $M$ una máquina (determinística o no-determinística) que usa espacio $S(n) \geq log(n)$ y sea
   $c$ una constante tal que para todo $x \in \{0,1\}^*$ cualquier configuración $C$ de un cómputo de $M$ con
   entrada $x$ se representa con $|\langle C \rangle| = c \cdot S(|x|)$ bits. Dado $x \in \{0,1\}^*$, podemos
   computar en tiempo polinomial en $S(n)$ una fórmula $\varphi_{M,x}(\overline{s}, \overline{t})$ en CNF con
   variables libres $\overline{s} = s_1, \dots, s_{c \cdot S(|x|)}$, $\overline{t} = t_1, \dots, t_{c \cdot
   S(|x|)}$ tal que $\langle C \rangle \langle C' \rangle \models \varphi_{M,x}(\overline{s}, \overline{t})$
-  sii hay una flecha de $C$ a $C'$ en $G_{M,x}$.}
-\end{flushleft}
+  sii hay una flecha de $C$ a $C'$ en $G_{M,x}$.} \\[0.5em]
+
+  \textbf{\textcolor{Mulberry}{Demostración:}} \\[0.5em]
+
+  Similar a \hyperlink{cooklevin}{\textcolor{Rhodamine}{Cook Levin}} lo que hacemos (ahora con configuraciones 
+  completas en vez de mini-configuraciones) es expresar cuando una configuración completa $C$ codificada con las 
+  variables $\overline{t}$, es la evolución en un paso de otra configuración $C'$ codificada con variables $\overline{s}$.
+  
+  Para saber lo anterior alcanza con mirar qué pasa en la codificacion de algunos bits de la cinta para ver donde 
+  está la cabeza de las cintas y como ya tengo la $\delta$ puedo simplemente comparar cuales son las acciones necesarias
+  para llegar a como estan las cosas en $C'$ y ver si es posible con alguna transición de la función $\delta$.
+\end{flushleft} 
 
 \begin{flushleft}
   \textbf{Teorema 19:}
-  $\mathsf{TQBF} \in \mathsf{PSpace}$-hard.
+  $\mathsf{TQBF} \in \mathsf{PSpace}$-hard. \\[0.5em]
+
+  \textbf{\textcolor{Mulberry}{Demostración:}} \\[0.5em]
+
+  Sea $\mathcal{L} \in \mathsf{PSpace}$ quiero ver que :
 \end{flushleft}
+\begin{center}
+  $\mathcal{L} \leq_p \mathsf{TQBF}$ \\[0.5em]
+
+  $x \in \mathcal{L} \iff f(x) \in \mathsf{TQBF}$
+\end{center}
+\begin{flushleft}
+  Para esto uso un lenguaje intermedio tal que:
+\end{flushleft}
+\begin{center}
+  $\mathcal{L} \leq_p \mathsf{CHECKQBF} \leq_p \mathsf{TQBF}$ 
+\end{center}
+\begin{flushleft}
+  Para demostrar esto usamos la \hyperlink{prop22}{\textcolor{Rhodamine}{proposición 22}} para formar $\psi_{c 
+  \dot S(n)}$ tal que $\langle C \rangle \langle C' \rangle \models \psi_i(\overline{s}, \overline{t})$ sii existe
+  un camino de longitud a lo sumo $2^i$ en $G_{M,x}$ entre $C$ y $C'$.
+  
+  A esta $\psi$ la vamos a definir recursivamente, el caso base ya lo probamos en la anterior proposición y el caso
+  recursivo es una especie de middle search asi no se vuelve exponencial la búsqueda.
+\end{flushleft}
+\begin{center}
+  $\psi_i(\overline{s}, \overline{t}) = \exists \overline{r} \forall \overline{u}, \overline{v} \ ((\overline{u} = 
+  \overline{s} \land \overline{v} = \overline{r}) \lor (\overline{u} = \overline{r} \land \overline{v} = \overline{t}))
+  \rightarrow \psi_{i-1}(\overline{u}, \overline{v})$
+\end{center}
 
 \begin{flushleft}
   \textbf{Teorema 20: \hypertarget{savitch}{\textcolor{Bittersweet}{(Teorema de Savitch)}}}
   $\mathsf{NSpace}(S(n)) \subseteq \mathsf{Space}(S(n)^2)$\textit{, de modo que} $\mathsf{PSpace} = \mathsf{
-  NPSpace}$.
+  NPSpace}$. \\[0.5em]
+
+  \textbf{\textcolor{Mulberry}{Demostración:}} \\[0.5em]
+
+  Sea $\mathcal{L} \in \mathsf{NSpace}(S(n))$ y sea N una máquina no-det tal que $\mathcal{L}(N)$, sabemos que:
 \end{flushleft}
+\begin{center}
+  $x \in \mathcal{L}$ sii hay un camino de longitud a lo sumo $2^{c \cdot S(|x|)}$ en $G_{N,x}$ desde $C_0$ a $C_f$
+\end{center}
+\begin{flushleft}
+  Definimos $Reach(C, C'c i) \in \{0,1\}$, la cual devuelve $1$ si hay un camino de longitud a lo sumo $2^i$ en 
+  $G_{N,x}$ desde $C$ hasta $C'$ de la siguiente manera: \\[0.5em]
+
+  \quad Si $i = 0$:
+  
+  \qquad ret ($C \rightarrow C' \in E_G$)
+
+  \quad Para cada posible configuración $C''$ de $G_{N,x}$:
+
+  \qquad $j = Reach(C, C'', i-1)$
+
+  \qquad $k = Reach(C'', C', i-1)$
+
+  \qquad Si $j = k = 1$:
+
+  \qquad \quad ret($1$)
+
+  \quad ret ($0$)
+  \\[0.5em]
+
+  Tenemos entonces que:
+\end{flushleft}
+\begin{center}
+  $x \in \mathcal{L} \iff Reach(C_0, C_f, c \cdot S(n)) = 1$
+\end{center}
+\begin{flushleft}
+  Luego, $Reach$ reusa el espacio para calcular $j$ y $k$, entonces $Reach(C, C', i)$ usa espacio $O(i \cdot S(n))$.
+
+  Por último, calculamos $Reach(C_0, C_f, c \cdot S(n))$ en $O(S(n^2))$.
+\end{flushleft}
+
 
 \begin{flushleft}
   \textbf{Proposición 23:}
@@ -860,8 +947,48 @@
 
 \begin{flushleft}
   \textbf{Teorema 23: \hypertarget{immerman}{\textcolor{Bittersweet}{(Teorema de Immerman-Szelepcsényi)}}}
-  $\overline{\mathsf{PATH}} \in \mathsf{NL}$.
+  $\overline{\mathsf{PATH}} \in \mathsf{NL}$. \\[0.5em]
+
+  \textbf{\textcolor{Mulberry}{Demostración:}} \\[0.5em]
+
+  Nuestro objetivo es ver que podemos certificar que $\langle G,s,t \rangle \not\in \mathsf{PATH}$. Para esto vamos a  
+  usar:
 \end{flushleft}
+\begin{center}
+  $A_i = \{ v \in V : v$ es alcanzable desde $s$ en a lo sumo $i$ pasos$\}$
+\end{center}
+\begin{flushleft}
+  Luego,
+\end{flushleft}
+\begin{center}
+  $\langle G, s, t \rangle \not\in \mathsf{PATH}$ sii $t \not\in A_n$
+\end{center}
+\begin{flushleft}
+  Para esta demostración vamos a crear el certificado final constructivamente y en cada paso demostrar que se puede 
+  verificar con una máquina que usa espacio $O(log(n))$ y que el tamaño de la parte del certificado que estamos haciendo
+  es polinomial al tamaño de la entrada.
+\end{flushleft}
+\begin{enumerate}
+  \item \textbf{Certificado de que \textcolor{Mulberry}{$v \in A_i$}:} $Z_{v \in A_i} =$ Lista de nodos de $s$ a $v$ donde cada elemento de la 
+  lista tiene una arista con el elemento que tiene al lado.
+  
+  \item \textbf{Certificado de que \textcolor{Mulberry}{$v \not\in A_i$} conociendo \textcolor{Mulberry}{$|A_i|$}:}
+  $Z_{v \not\in A_i}^{|A_i|} =$ Lista de tuplas de tamaño $|A_i|$, con el primer elemento de la tupla siendo un nodo y 
+  el segundo el certificado que dice que pertenece a $A_i$, esta lista contiene todos los elementos del conjunto $A_i$.
+  En este certificado veo que mi v no esté en la lista y que los certificados de las tuplas den $1$.
+
+  \item \textbf{Certificado de que \textcolor{Mulberry}{$v \not\in A_i$} conociendo \textcolor{Mulberry}{$|A_{i-1}|$}:}
+  $Z_{v \not\in A_i}^{|A_{i-1}|} =$ Similar al anterior pero ahora es la lista de los elementos de $A_{i-1}$ y lo que 
+  veo con este certificado es que los elementos de esta lista en su siguiente paso no puedan ir a mi $v$.
+
+  \item \textbf{Certificado de que \textcolor{Mulberry}{$|A_i| = a$} conociendo \textcolor{Mulberry}{$|A_{i-1}|$}:}
+  $Z_{|A_i| = a}^{|A_{i-1}|} =$ Es una lista de tuplas con todos los nodos en las primeras posiciones en orden y un 
+  certificado de que ese nodo pertenece a $A_i$ o que no pertenece y ve la cantidad que pertenecen.
+
+  \item \textbf{Certificado final de que \textcolor{Mulberry}{$t \not\in A_n$}:} $Z =$ Es una lista de certificados 
+  donde los primeros $n-1$ elementos de la lista son certificados para obtener $|A_n|$ constructivamente con el certificado
+  $4$ y el último es el de certificar que $t \not\in A_n$ con $|A_n|$, o sea $Z_{t \not\in A_n}^{|A_n|}$.
+\end{enumerate}
 
 \begin{flushleft}
   \textbf{Corolario 4:}
@@ -929,8 +1056,28 @@
 
 \begin{flushleft}
   \textbf{Proposición 32:}
-  \textit{Para todo $i > 0$, $\Sigma_i \mathsf{SAT} \in \Sigma^p_i$}-hard.
+  \textit{Para todo $i > 0$, $\Sigma_i \mathsf{SAT} \in \Sigma^p_i$}-hard. \\[0.5em]
+
+  \textbf{\textcolor{Mulberry}{Demostración:}} \\[0.5em]
+  
+  Tomando en consideración que ya te sabés \hyperlink{cooklevin}{\textcolor{Rhodamine}{Cook Levin}} de taquito, lo importante 
+  para saber de esta demostración es que:
 \end{flushleft}
+\begin{center}
+  $M(xu) = 1 \iff \tilde{u} \models \exists \overline{e}, \overline{q}_0, \dots, \overline{q}_m : \psi_1 \land \psi_2 
+  \land \psi_3 \land \psi_4$
+
+  \qquad \qquad \qquad \ $\iff \tilde{u} \models \forall \overline{e}, \overline{q}_0, \dots, \overline{q}_m : (\psi_1 
+  \land \psi_2 \land \psi_3) \rightarrow \psi_4$
+\end{center}
+\begin{flushleft}
+  Esto es una equivalencia de la lógica. \\[0.5em]
+
+  Luego, voy a ver para $\Sigma_i\mathsf{SAT}$ que para ambos casos de la última $Q \in \{\forall, \exists\}$ se cumple 
+  simplemente usando lo dicho en \hyperlink{cooklevin}{\textcolor{Rhodamine}{Cook Levin}} y la equivalencia lógica que 
+  mostramos antes.
+\end{flushleft}
+
 
 \begin{flushleft}
   \textbf{Corolario 6:}
@@ -1005,13 +1152,49 @@
   \mathsf{SAT}(\varphi)$ para toda fórmula booleana $\varphi = \varphi(x_1, \dots , x_n)$ con $|\varphi| = n$.
   Entonces existe una familia de circuitos $(C'_n)_{n \in \mathbb{N}}$ de tamaño polinomial en $S(n)$ tal que
   para todo $n: C'_n$ tiene $n$ salidas y para toda fórmula booleana $\varphi = \varphi(x_1, \dots, x_n)$ 
-  con $|\varphi| = n$, tenemos $\varphi(C'_n(\varphi)) = \mathcal{X}\mathsf{SAT}(\varphi)$.}
+  con $|\varphi| = n$, tenemos $\varphi(C'_n(\varphi)) = \mathcal{X}\mathsf{SAT}(\varphi)$.} \\[0.5em]
+
+  \textbf{\textcolor{Mulberry}{Demostración:}} \\[0.5em]
+
+  Teniendo $C_n(\varphi) = \mathcal{X}\mathsf{SAT}(\varphi)$ puedo usarlo para ir adivinando cada elemento de una entrada
+  que satisfage a $\varphi$ iterativamente.
 \end{flushleft}
 
 \begin{flushleft}
   \textbf{Teorema 29: \hypertarget{karpLipton}{\textcolor{Bittersweet}{(Teorema de Karp-Lipton)}}}
-  \textit{Si $\mathsf{NP \subseteq P_{/poly}}$, entonces $\mathsf{PH} = \Sigma^p_2$.}
+  \textit{Si $\mathsf{NP \subseteq P_{/poly}}$, entonces $\mathsf{PH} = \Sigma^p_2$.} \\[0.5em]
+
+  \textbf{\textcolor{Mulberry}{Demostración:}} \\[0.5em]
+
+  Alcanza con probar que con esa premisa puedo llegar a que $\Pi_2^p = \Sigma_2^p$, o equivalentemente probar que $\Pi_2
+  \mathsf{SAT} \in \Sigma_2^p$. Por la premisa sé que:
 \end{flushleft}
+\begin{center}
+  $\varphi \in \mathsf{SAT} \iff \exists \overline{v} \in \{0,1\}^n \models \varphi(\overline{v}) \iff C_n(\varphi) = 1$
+\end{center}
+\begin{flushleft}
+  Luego, tenemos que por $\Pi_2 \mathsf{SAT}$:
+\end{flushleft}
+\begin{center}
+  $\forall \overline{u} \in \{0,1\}^n \left( \exists \overline{v} \in \{0,1\}^n \models \varphi_{\overline{u}}(\overline{v})
+  \iff C_n(\varphi_{\overline{u}}(\overline{y})) = 1 \right)$
+\end{center}
+\begin{flushleft}
+  Luego, \\[0.5em]
+
+  \qquad $\forall \overline{u} \exists \overline{v} \varphi(\overline{u}, \overline{v}) \in \Pi_2\mathsf{SAT}$ sii $\forall 
+  \overline{u} \in \{0,1\}^n \exists \overline{v} \in \{0,1\}^n \models \varphi(\overline{u}, \overline{v})$
+
+  \qquad \qquad \qquad \qquad \qquad \quad \ \ sii $\forall \overline{u} \in \{0,1\}^n C_n(\varphi_{\overline{u}}(\overline{y}))
+  =1$
+
+  \qquad \qquad \qquad \qquad \qquad \quad \ \ sii $\forall \overline{u} \in \{0,1\}^n \models \varphi_{\overline{u}}
+  (C'_n(\varphi_{u}(\overline{y})))$
+
+  \qquad \qquad \qquad \qquad \qquad \quad \ \ sii $\exists c \in \{0,1\}^{q(n)} \forall \overline{u} \in \{0,1\}^n \models
+  \varphi_{\overline{u}}(R_c(\varphi_{\overline{u}}))$
+\end{flushleft}
+
 
 \begin{flushleft}
   \textbf{Proposición 38:}
@@ -1048,6 +1231,23 @@
   \textbf{\hypertarget{teo31}{Teorema 31:}}
   \textit{$\mathcal{L}$ es decidible por una familia de circuitos $\mathsf{P}$}-uniforme \textit{sii} $
   \mathcal{L} \in \mathsf{P}$.
+\end{flushleft}
+
+\begin{flushleft}
+  \hypertarget{ej17}{\textbf{Ejercicio 17:}}
+  \textit{Probar que $\mathcal{L}$ es decidible por una familia de circuitos $\mathsf{L}$}-uniformes $\iff 
+  \mathcal{L} \in \mathsf{P}$. \\[0.5em]
+
+  \textbf{\textcolor{Mulberry}{Demostración:}} \\[0.5em]
+
+  \textcolor{Mulberry}{$\subseteq$)}
+  Es consecuencia del hecho que $\mathsf{L \subseteq P}$ y el \textcolor{Rhodamine}{\hyperlink{teo31}{teorema 31}}.
+  \\[0.5em]
+
+  \textcolor{Mulberry}{$\supseteq$)}
+  Viendo la demo del \textcolor{Rhodamine}{\hyperlink{teo27}{teorema 27}} de que $\mathsf{P \subseteq P_{/poly}}$,
+  podemos ver que el tamaño del $C_n$ es polinomial, pero podemos computar su codificación a partir de $1^n$ 
+  implícitamente en $\mathsf{L}$. \textcolor{Red}{(el por qué te lo debo)}
 \end{flushleft}
 
 \begin{flushleft}
@@ -1123,24 +1323,6 @@
   \item $\mathcal{L} \in \mathsf{NC \iff P = NC}$.
   \item $\mathcal{L} \in \mathsf{L \iff P = L}$.
 \end{enumerate}
-
-\begin{flushleft}
-  \hypertarget{ej17}{\textbf{Ejercicio 17:}}
-  \textit{Probar que $\mathcal{L}$ es decidible por una familia de circuitos $\mathsf{L}$}-uniformes $\iff 
-  \mathcal{L} \in \mathsf{P}$. \\[0.5em]
-
-  \textbf{\textcolor{Mulberry}{Demostración:}} \\[0.5em]
-
-  \textcolor{Mulberry}{$\subseteq$)}
-  Es consecuencia del hecho que $\mathsf{L \subseteq P}$ y el \textcolor{Rhodamine}{\hyperlink{teo31}{teorema 31}}.
-  \\[0.5em]
-
-  \textcolor{Mulberry}{$\supseteq$)}
-  Viendo la demo del \textcolor{Rhodamine}{\hyperlink{teo27}{teorema 27}} de que $\mathsf{P \subseteq P_{/poly}}$,
-  podemos ver que el tamaño del $C_n$ es polinomial, pero podemos computar su codificación a partir de $1^n$ 
-  implícitamente en $\mathsf{L}$. \textcolor{Red}{(el por qué te lo debo)}
-
-\end{flushleft}
 
 \end{document}
 
